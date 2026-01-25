@@ -1,0 +1,21 @@
+{
+  "code": "cleanglassplate",
+  "class": "GlassPlate",
+  "shape": { "base": "collodion:item/plates/plate" },
+  "textures": {
+    "plate": { "base": "collodion:item/plate-clean" }
+  },
+  "attributes": {
+    "handbook": { "groupBy": ["wetplateplate-*"] },
+    "plateBlockState": "clean"
+  },
+  "maxstacksize": 1,
+  "heldTpIdleAnimation": "holdbothhands",
+  "creativeinventory": { "general": ["*"] },
+  "tpHandTransform": {
+    "translation": { "x": -0.75, "y": -0.7, "z": -0.5 },
+    "rotation": { "x": 100, "y": 0, "z": 110 },
+    "origin": { "x": 0.5, "y": 0.5, "z": 0.5 },
+    "scale": 0.8
+  }
+}

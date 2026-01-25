@@ -1,0 +1,102 @@
+{
+    "item-wetplatecamera": "Wetplate Camera",
+    "itemdesc-wetplatecamera": "A heavy wooden box used to capture moments in time on glass plates.",
+    
+    "item-collodionportion": "Collodion",
+    "incontainer-item-collodionportion": "Collodion",
+    "game:incontainer-item-collodionportion": "Collodion",
+    "itemdesc-collodionportion": "A syrupy chemical used to coat plates.",
+
+    "item-silversolutionportion": "Silvering Solution",
+    "incontainer-item-silversolutionportion": "Silvering Solution",
+    "game:incontainer-item-silversolutionportion": "Silvering Solution",
+    "itemdesc-silversolutionportion": "A sensitizing solution for collodion-coated plates.",
+
+    "item-developerportion": "Developer",
+    "incontainer-item-developerportion": "Developer",
+    "game:incontainer-item-developerportion": "Developer",
+    "itemdesc-developerportion": "Begins to reveal the latent image on an exposed plate.",
+
+    "item-fixerportion": "Fixer",
+    "incontainer-item-fixerportion": "Fixer",
+    "game:incontainer-item-fixerportion": "Fixer",
+    "itemdesc-fixerportion": "Stabilizes a developed plate so it can be handled in light.",
+
+    "item-roughglassplate": "Rough Glass Plate",
+    "itemdesc-roughglassplate": "A rough-cut glass plate.",
+
+    "item-cleanglassplate": "Clean Glass Plate",
+    "itemdesc-cleanglassplate": "A polished, clean glass plate.",
+
+    "item-collodioncoatedplate": "Collodion-Coated Plate",
+    "itemdesc-collodioncoatedplate": "A polished glass plate coated with collodion.",
+
+    "item-silveredplate": "Silvered Plate",
+    "itemdesc-silveredplate": "A sensitized plate that must be exposed while wet.",
+
+    "item-exposedplate": "Exposed Plate",
+    "itemdesc-exposedplate": "An exposed plate awaiting development.",
+
+    "item-developedplate": "Developed Plate",
+    "itemdesc-developedplate": "A developed plate awaiting fixing.",
+
+    "item-finishedphotoplate": "Finished Photo Plate",
+    "itemdesc-finishedphotoplate": "A framable, fixed plate that can be handled in light.",
+
+    "block-plate-rough": "Rough Glass Plate",
+    "block-plate-clean": "Clean Glass Plate",
+    "block-plate-coated": "Collodion-Coated Plate",
+
+
+
+    "wetplate-wetness": "Still wet: {0} min",
+    "wetplate-dry": "The plate has dried.",
+
+    "heldhelp-cleanroughglass": "Polish rough glass plate",
+    "collodion:heldhelp-cleanroughglass": "Polish rough glass plate",
+
+    "heldhelp-coatglassplate": "Coat plate with collodion solution (5s, 50mL)",
+    "collodion:heldhelp-coatglassplate": "Coat plate with collodion solution (5s, 50mL)",
+
+    "item-framedphotograph": "Framed Photograph",
+    "itemdesc-framedphotograph": "A photograph mounted in a simple wooden frame.",
+
+    "block-framedphotographwall": "Framed Photograph",
+    "block-framedphotographground": "Framed Photograph",
+
+    "block-developmenttray-red": "Development Tray (Red Clay)",
+    "blockdesc-developmenttray-red": "A shallow tray for developing and fixing wet plates.",
+
+    "block-developmenttray-blue": "Development Tray (Blue Clay)",
+    "blockdesc-developmenttray-blue": "A shallow tray for developing and fixing wet plates.",
+
+    "block-developmenttray-fire": "Development Tray (Fire Clay)",
+    "blockdesc-developmenttray-fire": "A shallow tray for developing and fixing wet plates.",
+
+    "block-developmenttray-red-exposed": "Development Tray (Red Clay)",
+    "block-developmenttray-red-developed": "Development Tray (Red Clay)",
+    "block-developmenttray-red-finished": "Development Tray (Red Clay)",
+    "block-developmenttray-blue-exposed": "Development Tray (Blue Clay)",
+    "block-developmenttray-blue-developed": "Development Tray (Blue Clay)",
+    "block-developmenttray-blue-finished": "Development Tray (Blue Clay)",
+    "block-developmenttray-fire-exposed": "Development Tray (Fire Clay)",
+    "block-developmenttray-fire-developed": "Development Tray (Fire Clay)",
+    "block-developmenttray-fire-finished": "Development Tray (Fire Clay)",
+
+    "item-developmenttray-raw-blue": "Unfired Development Tray (Blue Clay)",
+    "itemdesc-developmenttray-raw-blue": "A clay tray that must be fired before use.",
+    "item-developmenttray-raw-red": "Unfired Development Tray (Red Clay)",
+    "itemdesc-developmenttray-raw-red": "A clay tray that must be fired before use.",
+    "item-developmenttray-raw-fire": "Unfired Development Tray (Fire Clay)",
+    "itemdesc-developmenttray-raw-fire": "A clay tray that must be fired before use.",
+
+    "heldhelp-developmenttray-insertplate": "Place plate in tray",
+    "heldhelp-developmenttray-takeplate": "Take plate from tray",
+    "heldhelp-developmenttray-develop": "Develop exposed plate",
+    "heldhelp-developmenttray-fix": "Fix developed plate",
+
+    "collodion:heldhelp-developmenttray-insertplate": "Place plate in tray",
+    "collodion:heldhelp-developmenttray-takeplate": "Take plate from tray",
+    "collodion:heldhelp-developmenttray-develop": "Develop exposed plate",
+    "collodion:heldhelp-developmenttray-fix": "Fix developed plate"
+}

@@ -1,0 +1,23 @@
+{
+  "code": "exposedplate",
+  "class": "ExposedPlate",
+  "shape": { "base": "collodion:item/plates/plate" },
+  "textures": {
+    "plate": { "base": "collodion:item/plate-exposed" }
+  },
+  "storageFlags": 257,
+  "attributes": {
+    "handbook": { "groupBy": ["wetplateplate-*"] },
+    "offhandAllowed": true,
+    "heldUseAnimation": "interact"
+  },
+  "maxstacksize": 1,
+  "heldTpIdleAnimation": "holdbothhands",
+  "creativeinventory": { "general": ["*"] },
+  "tpHandTransform": {
+    "translation": { "x": -0.75, "y": -0.7, "z": -0.5 },
+    "rotation": { "x": 100, "y": 0, "z": 110 },
+    "origin": { "x": 0.5, "y": 0.5, "z": 0.5 },
+    "scale": 0.8
+  }
+}

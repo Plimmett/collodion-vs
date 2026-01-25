@@ -1,0 +1,33 @@
+# Build outputs
+bin/
+obj/
+
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+# VS Code (keep tasks/settings)
+.vscode/*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Local tooling / notes
+.obsidian/
+notes/
+
+# Reference projects
+reference/
+
+# Mod packaging / temp
+*.zip
+*.7z
+dist/
+artifacts/

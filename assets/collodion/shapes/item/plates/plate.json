@@ -1,0 +1,29 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": true
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+		"plate": "plate-rough"
+	},
+	"elements": [
+		{
+			"name": "Plate",
+			"from": [ 3.5, 0.0, 7.75 ],
+			"to": [ 12.5, 10.0, 8.25 ],
+			"autoUnwrap": false,
+			"uv": [ 0.0, 0.0 ],
+			"faces": {
+				"north": { "texture": "#plate", "uv": [ 0.0, 0.0, 1.0, 1.0 ], "autoUv": false },
+				"east": { "texture": "#plate", "uv": [ 0.0, 0.0, 1.0, 1.0 ], "autoUv": false },
+				"south": { "texture": "#plate", "uv": [ 0.0, 0.0, 1.0, 1.0 ], "autoUv": false },
+				"west": { "texture": "#plate", "uv": [ 0.0, 0.0, 1.0, 1.0 ], "autoUv": false },
+				"up": { "texture": "#plate", "uv": [ 0.0, 0.0, 1.0, 1.0 ], "autoUv": false },
+				"down": { "texture": "#plate", "uv": [ 0.0, 0.0, 1.0, 1.0 ], "autoUv": false }
+			}
+		}
+	]}

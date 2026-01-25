@@ -1,0 +1,32 @@
+{
+    "code": "wetplatecamera",
+    "class": "WetplateCamera",
+    "heldTpIdleAnimation": "holdbothhands",
+    "shape": { "base": "collodion:item/camera" },
+    "textures": {
+        "br": { "base" : "collodion:item/br" },
+        "bl": { "base" : "collodion:item/bl" },
+        "gd": { "base" : "collodion:item/gd" },
+        "lg": { "base" : "collodion:item/lg" }
+    },
+    "attributes": {
+        "handbook": {
+            "groupBy": ["wetplatecamera-*"]
+        }
+    },
+    "behaviors": [],
+    "maxstacksize": 1,
+    "creativeinventory": { "general": ["*"], "items": ["*"] },
+    "guiTransform": {
+        "translation": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "origin": { "x": 0.5, "y": 0.5, "z": 0.5 },
+        "scale": 1.0
+    },
+    "tpHandTransform": {
+        "translation": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "origin": { "x": 0.5, "y": 0.5, "z": 0.5 },
+        "scale": 1.0
+    }
+}

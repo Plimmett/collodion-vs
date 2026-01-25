@@ -1,0 +1,58 @@
+{
+  "code": "developerportion",
+  "class": "ItemLiquidPortion",
+  "matterState": "liquid",
+  "attributes": {
+    "handbook": {
+      "ignoreCreativeInvStacks": true
+    },
+    "waterTightContainerProps": {
+      "containable": true,
+      "itemsPerLitre": 100,
+      "texture": {
+        "base": "collodion:block/liquid/developer",
+        "alpha": 220
+      },
+      "allowSpill": true,
+      "whenSpilled": {
+        "action": "DropContents",
+        "stack": {
+          "type": "item",
+          "code": "collodion:developerportion"
+        }
+      },
+      "nutritionPropsPerLitre": {
+        "satiety": -1,
+        "health": 0,
+        "foodcategory": "NoNutrition"
+      }
+    }
+  },
+  "shape": { "base": "game:item/liquid" },
+  "texture": {
+    "base": "collodion:block/liquid/developer",
+    "alpha": 220
+  },
+  "creativeinventoryStacks": [
+    {
+      "tabs": [ "general", "liquids", "chemistry" ],
+      "stacks": [
+        {
+          "type": "block",
+          "code": "game:woodbucket",
+          "attributes": {
+            "ucontents": [
+              {
+                "type": "item",
+                "code": "collodion:developerportion",
+                "makefull": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "maxstacksize": 5000,
+  "materialDensity": 200
+}

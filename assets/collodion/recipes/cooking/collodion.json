@@ -1,0 +1,37 @@
+{
+  "code": "collodionportion",
+  "perishableProps": {
+    "type": "None",
+    "freshHours": { "avg": 48 },
+    "transitionHours": { "avg": 48 },
+    "transitionRatio": 1,
+    "transitionedStack": { "type": "item", "code": "collodion:collodionportion" }
+  },
+  "shape": { "base": "block/food/meal/liquid" },
+  "ingredients": [
+    {
+      "code": "water",
+      "validStacks": [ { "type": "item", "code": "game:waterportion", "shapeElement": "bowl/water" } ],
+      "minQuantity": 1,
+      "maxQuantity": 1,
+      "portionSizeLitres": 1
+    },
+    {
+      "code": "resin",
+      "validStacks": [ { "type": "item", "code": "game:resin" } ],
+      "minQuantity": 2,
+      "maxQuantity": 2
+    },
+    {
+      "code": "fiber",
+      "validStacks": [
+        { "type": "item", "code": "game:flaxfibers" },
+        { "type": "item", "code": "game:papyrustops" },
+        { "type": "item", "code": "game:cattailtops" }
+      ],
+      "minQuantity": 4,
+      "maxQuantity": 4
+    }
+  ],
+  "cooksInto": { "type": "Item", "code": "collodion:collodionportion", "quantity": 100 }
+}
