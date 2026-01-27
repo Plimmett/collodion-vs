@@ -18,6 +18,11 @@ namespace Collodion
         // Show debug/dev chat messages (e.g. mod load info, zoom mechanism tip).
         public bool ShowDebugLogs = false;
 
+        // Glass plate polishing
+        // If enabled, consumes some amount of plain cloth per plate polished.
+        public bool ConsumePlainClothOnPolish = true;
+        public int PlainClothConsumedPerPolish = 0;
+
         internal void ClampInPlace()
         {
             // Keep within a reasonable range; 0 or below disables truncation.
@@ -26,6 +31,9 @@ namespace Collodion
 
             if (PhotoSeenPingIntervalSeconds < 0) PhotoSeenPingIntervalSeconds = 0;
             if (PhotoSeenPingIntervalSeconds > 24 * 60 * 60) PhotoSeenPingIntervalSeconds = 24 * 60 * 60;
+
+            if (PlainClothConsumedPerPolish < 0) PlainClothConsumedPerPolish = 0;
+            if (PlainClothConsumedPerPolish > 64) PlainClothConsumedPerPolish = 64;
         }
     }
 }

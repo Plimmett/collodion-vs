@@ -7,6 +7,9 @@
     "game:incontainer-item-collodionportion": "Collodion",
     "itemdesc-collodionportion": "A syrupy chemical used to coat plates.",
 
+    "item-drycollodionmix": "Dry Collodion Mix",
+    "itemdesc-drycollodionmix": "A dry mix that can be sealed with water in a barrel to make collodion.",
+
     "item-silversolutionportion": "Silvering Solution",
     "incontainer-item-silversolutionportion": "Silvering Solution",
     "game:incontainer-item-silversolutionportion": "Silvering Solution",

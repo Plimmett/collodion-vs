@@ -29,6 +29,7 @@ namespace Collodion
             EffectsPresetOutdoor.ClampInPlace();
 
             PoseDeltas ??= CreateDefaultPoseDeltas();
+
         }
 
         private static Dictionary<string, CollodionModSystem.PoseDelta> CreateDefaultPoseDeltas()

@@ -8,6 +8,19 @@ namespace Collodion
     {
         public override void StartServerSide(ICoreServerAPI api)
         {
+            Config = LoadOrCreateServerConfig(api);
+
+            try
+            {
+                api.Logger.Notification(
+                    $"Collodion: loaded config '{ConfigFileName}'"
+                );
+            }
+            catch
+            {
+                // ignore
+            }
+
             ServerChannel = api.Network.GetChannel("collodion");
             ServerChannel.SetMessageHandler<PhotoTakenPacket>(OnPhotoTakenReceived);
             ServerChannel.SetMessageHandler<CameraLoadPlatePacket>(OnCameraLoadPlateReceived);
@@ -22,6 +35,36 @@ namespace Collodion
                 .SetMessageHandler<PhotoBlobChunkPacket>((player, p) => PhotoSync?.ServerHandleChunk(player, p))
                 .SetMessageHandler<PhotoCaptionSetPacket>((player, p) => OnPhotoCaptionSet(player, p))
                 .SetMessageHandler<PhotoSeenPacket>((player, p) => OnPhotoSeen(player, p));
+        }
+
+        private static CollodionConfig LoadOrCreateServerConfig(ICoreServerAPI sapi)
+        {
+            CollodionConfig? cfg = null;
+            try
+            {
+                cfg = sapi.LoadModConfig<CollodionConfig>(ConfigFileName);
+            }
+            catch
+            {
+                cfg = null;
+            }
+
+            if (cfg == null)
+            {
+                cfg = new CollodionConfig();
+                try
+                {
+                    cfg.ClampInPlace();
+                    sapi.StoreModConfig(cfg, ConfigFileName);
+                }
+                catch
+                {
+                    // ignore
+                }
+            }
+
+            cfg.ClampInPlace();
+            return cfg;
         }
 
         private static PhotoLastSeenIndex LoadOrCreateServerPhotoLastSeenIndex(ICoreServerAPI sapi)

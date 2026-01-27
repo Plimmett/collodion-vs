@@ -13,6 +13,8 @@ namespace Collodion
         // Collodion portion itemsPerLitre is 100 in json, so 1 unit = 10mL.
         private const int CollodionUnitsPerCoat = 5; // 50mL
 
+        private CollodionModSystem? modSys;
+
         private static readonly AssetLocation PlainClothCode = new AssetLocation("game", "cloth-plain");
         private static readonly AssetLocation WashSound = new AssetLocation("sounds/block/wash");
         private static readonly AssetLocation CollodionPortionCode = new AssetLocation("collodion", "collodionportion");
@@ -20,6 +22,8 @@ namespace Collodion
         public override void OnLoaded(ICoreAPI api)
         {
             base.OnLoaded(api);
+
+            modSys = api.ModLoader.GetModSystem<CollodionModSystem>();
 
             // These blocks use per-texture alpha. If rendered in the opaque pass, they will write depth
             // and can cause "see under terrain" artifacts because terrain behind them never renders.
@@ -138,15 +142,34 @@ namespace Collodion
                     Block? cleanBlock = GetBlockForState(world, "clean");
                     if (cleanBlock != null)
                     {
+                        bool isCreative = byPlayer.WorldData?.CurrentGameMode == EnumGameMode.Creative;
+
+                        int consumeCount = 1;
+                        if (modSys?.Config?.Client?.ConsumePlainClothOnPolish == false)
+                        {
+                            consumeCount = 0;
+                        }
+                        else if (modSys?.Config != null)
+                        {
+                            consumeCount = modSys.Config.Client.PlainClothConsumedPerPolish;
+                        }
+
+                        ItemSlot? activeSlot = byPlayer.InventoryManager?.ActiveHotbarSlot;
+                        if (!isCreative && consumeCount > 0)
+                        {
+                            if (activeSlot?.Itemstack == null || activeSlot.Itemstack.StackSize < consumeCount)
+                            {
+                                return false;
+                            }
+                        }
+
                         world.BlockAccessor.SetBlock(cleanBlock.Id, blockSel.Position);
                         world.BlockAccessor.MarkBlockDirty(blockSel.Position);
 
-                        bool isCreative = byPlayer.WorldData?.CurrentGameMode == EnumGameMode.Creative;
-                        if (!isCreative)
+                        if (!isCreative && consumeCount > 0)
                         {
-                            ItemSlot? activeSlot = byPlayer.InventoryManager?.ActiveHotbarSlot;
-                            activeSlot?.TakeOut(1);
-                            activeSlot?.MarkDirty();
+                            activeSlot!.TakeOut(consumeCount);
+                            activeSlot.MarkDirty();
                         }
 
                         world.PlaySoundAt(WashSound, blockSel.Position.X + 0.5, blockSel.Position.Y + 0.5, blockSel.Position.Z + 0.5, null);
