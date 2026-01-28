@@ -251,8 +251,19 @@ namespace Collodion
                 ITexPositionSource baseSource = capi.Tesselator.GetTextureSource(this);
                 var photoSource = new PhotoTextureSource(baseSource, texPos);
 
+                // Prefer the item's authored shape, so framed photographs can include their frame
+                // and we don't depend on a separate hardcoded shape asset.
                 // The shape should use texture key "#photo" (preferred) or "#null" on the photo face.
-                var composite = new CompositeShape { Base = PhotoShapeBase };
+                CompositeShape composite;
+                try
+                {
+                    composite = Shape?.Clone() ?? new CompositeShape { Base = PhotoShapeBase };
+                    if (composite.Base == null) composite.Base = PhotoShapeBase;
+                }
+                catch
+                {
+                    composite = new CompositeShape { Base = PhotoShapeBase };
+                }
 
                 capi.Tesselator.TesselateShape(
                     "collodion-photoitem",

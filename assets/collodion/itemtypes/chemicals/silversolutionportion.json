@@ -20,11 +20,6 @@
           "type": "item",
           "code": "collodion:silversolutionportion"
         }
-      },
-      "nutritionPropsPerLitre": {
-        "satiety": -1,
-        "health": 0,
-        "foodcategory": "NoNutrition"
       }
     }
   },
@@ -54,5 +49,11 @@
     }
   ],
   "maxstacksize": 5000,
-  "materialDensity": 200
+  "materialDensity": 200,
+  "guiTransform": {
+		"translation": { "x": 0, "y": 1, "z": 0 },
+		"rotation": { "x": 123, "y": -33, "z": -13 },
+		"origin": { "x": 0.5, "y": 0, "z": 0.5 },
+		"scale": 1.4
+	}
 }
