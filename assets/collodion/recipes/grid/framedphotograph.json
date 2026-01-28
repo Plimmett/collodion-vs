@@ -1,5 +1,7 @@
 [
   {
+    "name": "Framed photograph (plate + plank)",
+    "showInHandbook": true,
     "ingredientPattern": "FP",
     "width": 2,
     "height": 1,
@@ -22,6 +24,8 @@
     }
   },
   {
+    "name": "Framed photograph (mirror)",
+    "showInHandbook": false,
     "ingredientPattern": "PF",
     "width": 2,
     "height": 1,
@@ -44,50 +48,8 @@
     }
   },
   {
-    "ingredientPattern": "FP",
-    "width": 2,
-    "height": 1,
-    "ingredients": {
-      "F": {
-        "type": "item",
-        "code": "collodion:finishedphotoplate",
-        "quantity": 1
-      },
-      "P": {
-        "type": "block",
-        "code": "game:planks-*",
-        "quantity": 1
-      }
-    },
-    "output": {
-      "type": "item",
-      "code": "collodion:framedphotograph",
-      "quantity": 1
-    }
-  },
-  {
-    "ingredientPattern": "PF",
-    "width": 2,
-    "height": 1,
-    "ingredients": {
-      "F": {
-        "type": "item",
-        "code": "collodion:finishedphotoplate",
-        "quantity": 1
-      },
-      "P": {
-        "type": "block",
-        "code": "game:planks-*",
-        "quantity": 1
-      }
-    },
-    "output": {
-      "type": "item",
-      "code": "collodion:framedphotograph",
-      "quantity": 1
-    }
-  },
-  {
+    "name": "Framed photograph (reset)",
+    "showInHandbook": false,
     "ingredientPattern": "F",
     "width": 1,
     "height": 1,

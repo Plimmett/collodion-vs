@@ -1,14 +1,16 @@
 {
     "code": "framedphotograph",
     "class": "FramedPhotograph",
-    "shape": { "base": "collodion:item/photo" },
+    "shape": { "base": "collodion:item/framedphotograph" },
     "heldTpIdleAnimation": "holdbothhands",
     "attributes": {
         "displaycaseable": true,
         "shelvable": true
     },
+    "creativeinventory": { "general": ["*"], "items": ["*"] },
     "textures": {
-        "oak": { "base": "game:block/wood/debarked/oak" }
+        "oak": { "base": "game:block/wood/debarked/oak" },
+        "photo": { "base": "game:block/wood/debarked/oak" } 
     },
     "maxstacksize": 1,
     "guiTransform": {

@@ -2,6 +2,7 @@
     "code": "wetplatecamera",
     "class": "WetplateCamera",
     "heldTpIdleAnimation": "holdbothhands",
+    "heldRightReadyAnimation": "holdbothhands",
     "shape": { "base": "collodion:item/camera" },
     "textures": {
         "br": { "base" : "collodion:item/br" },

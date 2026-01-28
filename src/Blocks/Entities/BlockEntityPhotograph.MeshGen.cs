@@ -9,6 +9,9 @@ namespace Collodion
 {
     public partial class BlockEntityPhotograph
     {
+    // Plate/frame visible area is 5w x 5.5h => aspect = 10/11.
+    private const float PhotoTargetAspect = 10f / 11f;
+
         private sealed class SingleTextureSource : ITexPositionSource
         {
             private readonly TextureAtlasPosition texPos;
@@ -136,27 +139,27 @@ namespace Collodion
             }
         }
 
-        private MeshData GeneratePhotoMeshForBlock(ICoreClientAPI capi, TextureAtlasPosition texPos)
+        private MeshData GeneratePhotoMeshForBlock(ICoreClientAPI capi, TextureAtlasPosition texPos, float photoAspect)
         {
             string path = Block?.Code?.Path ?? string.Empty;
             if (path.StartsWith("framedphotographwall", StringComparison.OrdinalIgnoreCase))
             {
-                return GenerateFramedWallPhotoMesh(capi, texPos);
+                return GenerateFramedWallPhotoMesh(capi, texPos, photoAspect);
             }
 
             if (path.StartsWith("framedphotographground", StringComparison.OrdinalIgnoreCase))
             {
-                return GenerateFramedGroundPhotoMesh(capi, texPos);
+                return GenerateFramedGroundPhotoMesh(capi, texPos, photoAspect);
             }
 
-            return GenerateMountedPlateMesh(capi, texPos);
+            return GenerateMountedPlateMesh(capi, texPos, photoAspect);
         }
 
-        private MeshData GenerateFramedWallPhotoMesh(ICoreClientAPI capi, TextureAtlasPosition texPos)
+        private MeshData GenerateFramedWallPhotoMesh(ICoreClientAPI capi, TextureAtlasPosition texPos, float photoAspect)
         {
             // KosPhotography-style: tesselate a dedicated "photo plane" block mesh defined by the frame block.
             // This avoids terrain-pipeline edge cases and lets model authors control exact placement.
-            if (TryGetPhotoPlaneMeshFromBlockAttribute(capi, texPos, out MeshData planeMesh))
+            if (TryGetPhotoPlaneMeshFromBlockAttribute(capi, texPos, photoAspect, out MeshData planeMesh))
             {
                 return planeMesh;
             }
@@ -180,6 +183,18 @@ namespace Collodion
             MeshData mesh = CreateQuadMeshFromXyz(xyz, "south");
             mesh = mesh.WithTexPos(texPos);
 
+            // Ensure we sample the correct atlas region and crop to target aspect.
+            int uvRotationDeg = 0;
+            try
+            {
+                uvRotationDeg = Block?.Attributes?["photoUvRotation"]?.AsInt(0) ?? 0;
+            }
+            catch
+            {
+                uvRotationDeg = 0;
+            }
+            StampUvByRotationCropped(mesh, texPos, uvRotationDeg, photoAspect, PhotoTargetAspect);
+
             float yawDeg = GetYawDegFromBlockVariant();
             if (Math.Abs(yawDeg) > 0.001f)
             {
@@ -189,9 +204,9 @@ namespace Collodion
             return mesh;
         }
 
-        private MeshData GenerateFramedGroundPhotoMesh(ICoreClientAPI capi, TextureAtlasPosition texPos)
+        private MeshData GenerateFramedGroundPhotoMesh(ICoreClientAPI capi, TextureAtlasPosition texPos, float photoAspect)
         {
-            if (TryGetPhotoPlaneMeshFromBlockAttribute(capi, texPos, out MeshData planeMesh))
+            if (TryGetPhotoPlaneMeshFromBlockAttribute(capi, texPos, photoAspect, out MeshData planeMesh))
             {
                 return planeMesh;
             }
@@ -216,6 +231,18 @@ namespace Collodion
             MeshData mesh = CreateQuadMeshFromXyz(xyz, "up");
             mesh = mesh.WithTexPos(texPos);
 
+            // Ensure we sample the correct atlas region and crop to target aspect.
+            int uvRotationDeg = 0;
+            try
+            {
+                uvRotationDeg = Block?.Attributes?["photoUvRotation"]?.AsInt(0) ?? 0;
+            }
+            catch
+            {
+                uvRotationDeg = 0;
+            }
+            StampUvByRotationCropped(mesh, texPos, uvRotationDeg, photoAspect, PhotoTargetAspect);
+
             float yawDeg = GetYawDegFromBlockVariant();
             if (Math.Abs(yawDeg) > 0.001f)
             {
@@ -225,7 +252,7 @@ namespace Collodion
             return mesh;
         }
 
-        private bool TryGetPhotoPlaneMeshFromBlockAttribute(ICoreClientAPI capi, TextureAtlasPosition texPos, out MeshData mesh)
+        private bool TryGetPhotoPlaneMeshFromBlockAttribute(ICoreClientAPI capi, TextureAtlasPosition texPos, float photoAspect, out MeshData mesh)
         {
             mesh = default!;
 
@@ -274,7 +301,7 @@ namespace Collodion
                 }
 
                 // Ensure we sample the correct atlas region (and optionally rotate the photo).
-                StampUvByRotation(planeMesh, texPos, uvRotationDeg);
+                StampUvByRotationCropped(planeMesh, texPos, uvRotationDeg, photoAspect, PhotoTargetAspect);
 
                 lock (clientMeshLock)
                 {
@@ -290,7 +317,7 @@ namespace Collodion
             }
         }
 
-        private MeshData GenerateMountedPlateMesh(ICoreClientAPI capi, TextureAtlasPosition texPos)
+        private MeshData GenerateMountedPlateMesh(ICoreClientAPI capi, TextureAtlasPosition texPos, float photoAspect)
         {
             MeshData mesh;
             try
@@ -355,7 +382,7 @@ namespace Collodion
             mesh = mesh.WithTexPos(texPos);
 
             // Explicitly stamp UVs so we actually sample the photo region.
-            StampUvRotate90Cw(mesh, texPos);
+            StampUvByRotationCropped(mesh, texPos, 90, photoAspect, PhotoTargetAspect);
 
             return mesh;
         }

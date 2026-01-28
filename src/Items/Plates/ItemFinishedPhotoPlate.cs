@@ -12,6 +12,8 @@ namespace Collodion
     public sealed class ItemFinishedPhotoPlate : ItemPlateBase
     {
         private const float GroundScale = 2.5f;
+        // Plate/frame visible area is 5w x 5.5h => aspect = 10/11.
+        private const float PhotoTargetAspect = 10f / 11f;
         private sealed class CachedRender
         {
             public MultiTextureMeshRef MeshRef;
@@ -128,6 +130,16 @@ namespace Collodion
             {
                 using (BitmapExternal bitmap = new BitmapExternal(path))
                 {
+                    float photoAspect = 1f;
+                    try
+                    {
+                        if (bitmap.Height > 0) photoAspect = bitmap.Width / (float)bitmap.Height;
+                    }
+                    catch
+                    {
+                        photoAspect = 1f;
+                    }
+
                     string photoKey = Path.GetFileNameWithoutExtension(photoFileName);
                     AssetLocation texLoc = new AssetLocation("collodion", $"photo-{photoKey}-v{versionSnapshot}");
 
@@ -163,7 +175,7 @@ namespace Collodion
                     }
 
                     // Add a thin overlay quad on the "south" (+Z) face of the plate shape.
-                    MeshData overlay = CreateFrontOverlayQuad(texPos, baseMesh, uvRotationDeg, mirrorX);
+                    MeshData overlay = CreateFrontOverlayQuad(texPos, baseMesh, uvRotationDeg, mirrorX, photoAspect);
 
                     baseMesh.AddMeshData(overlay);
 
@@ -196,7 +208,7 @@ namespace Collodion
             }
         }
 
-        private static MeshData CreateFrontOverlayQuad(TextureAtlasPosition texPos, MeshData baseMesh, int uvRotationDeg, bool mirrorX)
+        private static MeshData CreateFrontOverlayQuad(TextureAtlasPosition texPos, MeshData baseMesh, int uvRotationDeg, bool mirrorX, float photoAspect)
         {
             // Derive the photo quad from the current plate model bounds so shape changes
             // (e.g. recent re-centering for GUI spin) don't break placement.
@@ -265,6 +277,9 @@ namespace Collodion
 
             ApplyUvRotationCw(m, uvRotationDeg);
 
+            // Center-crop the photo so it fills the plate without stretching.
+            ApplyUvCenterCropToAspect(m, photoAspect, PhotoTargetAspect, uvRotationDeg);
+
             if (mirrorX)
             {
                 ApplyUvMirrorX(m);
@@ -287,6 +302,46 @@ namespace Collodion
 
             // Scale UVs into atlas space and fill TextureIndices.
             return m.WithTexPos(texPos);
+        }
+
+        private static void ApplyUvCenterCropToAspect(MeshData mesh, float sourceAspect, float targetAspect, int rotationDeg)
+        {
+            if (mesh.Uv == null || mesh.VerticesCount <= 0) return;
+            if (sourceAspect <= 0 || targetAspect <= 0) return;
+
+            int rot = ((rotationDeg % 360) + 360) % 360;
+            bool rot90 = rot == 90 || rot == 270;
+
+            float effectiveSourceAspect = rot90 ? (1f / sourceAspect) : sourceAspect;
+            if (effectiveSourceAspect <= 0) return;
+
+            float keepU = 1f;
+            float keepV = 1f;
+
+            // If the source is wider than the target, crop left/right (U). Otherwise crop top/bottom (V).
+            if (effectiveSourceAspect > targetAspect)
+            {
+                keepU = targetAspect / effectiveSourceAspect;
+            }
+            else
+            {
+                keepV = effectiveSourceAspect / targetAspect;
+            }
+
+            if (keepU < 0f) keepU = 0f;
+            if (keepU > 1f) keepU = 1f;
+            if (keepV < 0f) keepV = 0f;
+            if (keepV > 1f) keepV = 1f;
+
+            float uMin = (1f - keepU) * 0.5f;
+            float vMin = (1f - keepV) * 0.5f;
+
+            float[] uv = mesh.Uv;
+            for (int i = 0; i < mesh.VerticesCount; i++)
+            {
+                uv[i * 2 + 0] = uMin + uv[i * 2 + 0] * keepU;
+                uv[i * 2 + 1] = vMin + uv[i * 2 + 1] * keepV;
+            }
         }
 
         private static void ApplyUvRotationCw(MeshData mesh, int uvRotationDeg)
